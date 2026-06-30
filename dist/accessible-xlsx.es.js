@@ -42256,4 +42256,4 @@ async function Ut(e) {
 	}], t.xlsx.writeBuffer();
 }
 //#endregion
-export { Ut as default };
+export { Ut as accessibleXLSX };

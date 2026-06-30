@@ -83,7 +83,7 @@ function saveAs(blob, filename) {
 _Note: You can also generate a single-page spreadsheet in Node.js or a multi-page spreadsheet in a web browser!_
 
 ```js
-import accessibleXLSX from "@onsvisual/accessible-xlsx";
+import { accessibleXLSX } from "@onsvisual/accessible-xlsx";
 import { writeFileSync } from "node:fs";
 
 const data = {
@@ -156,7 +156,7 @@ writeFileSync("./my_spreadsheet.xlsx", data);
 In a client-side Svelte app it is necessary to import the version of this library with Node.js polyfills bundled. This can be done as follows:
 
 ```js
-import accessibleXLSX from "@onsvisual/accessible-xlsx/bundled";
+import { accessibleXLSX } from "@onsvisual/accessible-xlsx/bundled";
 ```
 
 The rest of the code should be the same as the first vanilla JS example above.
