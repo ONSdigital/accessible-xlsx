@@ -153,10 +153,10 @@ writeFileSync("./my_spreadsheet.xlsx", data);
 
 ## Generate a spreadsheet in a Svelte app
 
-In a client-side Svelte app it is necessary to import a version of this library that can be used in a web browser (with Node.js polyfills bundled). This can be done as follows:
+In a client-side Svelte app (or any other app build using a JS bundler), the following import is used:
 
 ```js
-import accessibleXLSX from "@onsvisual/accessible-xlsx/browser";
+import accessibleXLSX from "@onsvisual/accessible-xlsx";
 ```
 
 The rest of the code should be the same as the first vanilla JS example above.

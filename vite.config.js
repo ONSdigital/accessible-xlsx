@@ -1,6 +1,5 @@
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 module.exports = defineConfig({
 	build: {
@@ -9,6 +8,5 @@ module.exports = defineConfig({
 			name: "accessibleXLSX",
 			fileName: (format) => `accessible-xlsx.${format}.js`
 		}
-	},
-	plugins: [nodePolyfills()]
+	}
 });
