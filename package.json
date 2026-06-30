@@ -1,0 +1,42 @@
+{
+	"name": "@onsvisual/accessible-xlsx",
+	"version": "0.1.0",
+	"description": "A library for creating accessible XLSX spreadsheets",
+	"files": [
+		"dist"
+	],
+	"main": "./lib/main.js",
+	"exports": {
+		".": {
+			"import": "./lib/main.js"
+		},
+		"./browser": {
+			"import": "./dist/accessible-xlsx.es.js",
+			"require": "./dist/accessible-xlsx.umd.js"
+		}
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ONSdigital/accessible-xlsx.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ONSdigital/accessible-xlsx/issues"
+	},
+	"homepage": "https://github.com/ONSdigital/accessible-xlsx#readme",
+	"keywords": [],
+	"author": "Ahmad Barclay",
+	"license": "ISC",
+	"type": "module",
+	"devDependencies": {
+		"vite": "^8.1.0",
+		"vite-plugin-node-polyfills": "^0.28.0"
+	},
+	"peerDependencies": {
+		"@protobi/exceljs": "^4.4.0-protobi.10"
+	}
+}

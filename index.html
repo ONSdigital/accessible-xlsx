@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Accessible XLSX</title>
+		<style>
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="module">
+			import accessibleXLSX from "./lib/main.js";
+
+			const singleSheetData = {
+				sheetName: "Table name",
+				sheetIntroText: ["Some introductory text."],
+				columns: [
+					{
+						style: "text",
+						heading: "Category",
+						values: ["First category", "Second category"]
+					},
+					{
+						style: "number_with_commas",
+						heading: "Selected group",
+						values: [12_345, 1_234_567]
+					},
+					{
+						style: "number_1dp",
+						heading: "England and Wales with a really long title",
+						values: [45.6, 45.6]
+					}
+				]
+			};
+
+			const multiSheetData = {
+				coverSheetTitle: "An example spreadsheet",
+				coverSheetContents: [
+					"## Subtitle 1",
+					"Text 1a",
+					"Text 1b",
+					"## Subtitle 2",
+					"Text 2a",
+					"Text 2b",
+					"[Office for National Statistics](https://www.ons.gov.uk)"
+				],
+				notes: [
+					{ name: "note_1", text: "Here is a note" },
+					{ name: "another_note", text: "Here is another note" },
+					{ name: "note C", text: "Another note" }
+				],
+				sheets: [
+					{
+						sheetName: "Sheet name",
+						sheetIntroText: ["Some introductory text [another_note][note_1]"],
+						columns: [
+							{
+								style: "text",
+								heading: "Category [note_1]",
+								values: ["First category [note_1]", "Second category"]
+							},
+							{
+								style: "number_with_commas",
+								heading: "Selected group",
+								values: [12_345, 1_234_567]
+							},
+							{
+								style: "number_1dp",
+								heading: "England and Wales with a really long title",
+								values: [45.6, 45.6]
+							}
+						]
+					},
+					{
+						sheetName: "Another sheet",
+						columns: [
+							{
+								style: "text",
+								heading: "Category",
+								values: [
+									"First category",
+									"Second category",
+									"Really long looooooong category"
+								]
+							},
+							{
+								style: "number_1dp",
+								heading: "Selected group",
+								values: [12.3, 12.3, 78.9]
+							},
+							{
+								style: "number_1dp",
+								heading: "England and Wales with a really long title\n(units)",
+								values: [45.6, null, 45.6]
+							}
+						]
+					}
+				]
+			};
+
+			function saveAs(blob, filename) {
+				let url = window.URL || window.webkitURL || window;
+				let link = url.createObjectURL(blob);
+				let a = document.createElement("a");
+
+				a.download = filename;
+				a.href = link;
+				document.body.appendChild(a);
+
+				a.click();
+				document.body.removeChild(a);
+			}
+
+			window.downloadSingleSpreadsheet = () => {
+				accessibleXLSX(singleSheetData).then((buffer) => {
+					const blob = new Blob([buffer], {
+						type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+					});
+					saveAs(blob, "single-spreadsheet.xlsx");
+				});
+			};
+
+			window.downloadMultiSpreadsheet = () => {
+				accessibleXLSX(multiSheetData).then((buffer) => {
+					const blob = new Blob([buffer], {
+						type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+					});
+					saveAs(blob, "multi-spreadsheet.xlsx");
+				});
+			};
+		</script>
+
+		<h1>Accessible XLSX</h1>
+
+		<p>Text outputs from the <a href="">@onsvisual/accessible-xlsx</a> library.</p>
+
+		<p>Click to save a generated spreadsheet:</p>
+
+		<p>
+			<button onclick="downloadSingleSpreadsheet()">Single-page spreadsheet</button>
+			<button onclick="downloadMultiSpreadsheet()">Multi-page spreadsheet</button>
+		</p>
+	</body>
+</html>
