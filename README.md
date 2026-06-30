@@ -56,12 +56,12 @@ If you are loading it directly in a browser:
 		const blob = new Blob([xlsx], {
 			type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 		});
-		FileSaver.saveAs(blob, "my_spreadsheet.xlsx");
+		saveAs(blob, "my_spreadsheet.xlsx");
 	});
 </script>
 ```
 
-Note that FileSaver is used in the above example for brevity. The same basic functionality as FileSaver.saveAs() can be achieved with following simple function:
+Note that the FileSaver "saveAs" function is used in the above example for brevity. The same basic save functionality can be achieved with following simple function:
 
 ```js
 function saveAs(blob, filename) {
