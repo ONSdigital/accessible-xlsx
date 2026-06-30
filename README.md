@@ -19,8 +19,10 @@ npm install @onsvisual/accessible-xlsx
 If you are loading it directly in a browser:
 
 ```html
-<script src="accessible-xlsx.umd.js"></script>
+<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.1.3/dist/accessible-xlsx.umd.js"></script>
 ```
+
+In a lot of cases, you'll want to download this JS file and save it locally in your project.
 
 ## Usage examples
 
