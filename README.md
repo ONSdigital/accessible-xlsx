@@ -2,6 +2,8 @@
 
 This library enables the creation of accessible XLSX spreadsheets compatible with [Analysis Function best practice guidance](https://analysisfunction.civilservice.gov.uk/policy-store/releasing-statistics-in-spreadsheets/), and can be used in a web browser and in Node.js applications.
 
+Spreadsheets generated with this library should pass all of the tests in our [XLSX Accessibility Checker](https://onsdigital.github.io/xlsx-accessibility-checker/) tool.
+
 ## How does it work?
 
 This is a very simple wrapper for the [ExcelJS](https://github.com/exceljs/exceljs) library that allows accessible spreadsheets to be created with minimal configuration.
