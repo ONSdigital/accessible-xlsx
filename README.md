@@ -24,7 +24,7 @@ If you are loading it directly in a browser:
 <script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.1.3/dist/accessible-xlsx.umd.js"></script>
 ```
 
-In a lot of cases, you'll want to download this JS file and save it locally in your project.
+In most cases, you'll want to download the JS file ```accessible-xlsx.umd.js``` and save it locally in your project.
 
 ## Usage examples
 
@@ -204,7 +204,7 @@ const xlsx = accessibleXLSX(data);
 
 ### An array of objects
 
-This is likely to be more convenient for data visualisation projects where data is typically already in this format. Note that an additional "key" property is required for each column if the object keys in the data rows do not exactly match the column "heading" wanted in the spreadsheet.
+This is likely to be more convenient for data visualisation projects where data is typically already in this format. Note that an additional ```key``` property is required for each column if the object keys in the data rows do not exactly match the human-readable column ```heading``` wanted in the spreadsheet.
 
 ```js
 const rows = [
