@@ -1,6 +1,6 @@
 # Accessible XLSX
 
-This library enables the creation of accessible XLSX spreadsheets compatible with [Analysis Function best practice guidance](https://analysisfunction.civilservice.gov.uk/policy-store/releasing-statistics-in-spreadsheets/), and can be used in a web browser and in Node.js applications.
+This library enables the creation of accessible XLSX spreadsheets compatible with [Analysis Function best practice guidance](https://analysisfunction.civilservice.gov.uk/policy-store/releasing-statistics-in-spreadsheets/). It can be used in client-side JavaScript and in Node.js.
 
 Spreadsheets generated with this library should pass all of the tests in our [XLSX Accessibility Checker](https://onsdigital.github.io/xlsx-accessibility-checker/) tool.
 
@@ -65,7 +65,7 @@ In a lot of cases, you'll want to download this JS file and save it locally in y
 </script>
 ```
 
-Note that the FileSaver "saveAs" function is used in the above example for brevity. The same basic save functionality can be achieved with following simple function:
+Note that the FileSaver "saveAs" function is used in the above example for brevity. The same basic save functionality can be achieved with following function:
 
 ```js
 function saveAs(blob, filename) {
@@ -204,7 +204,7 @@ const xlsx = accessibleXLSX(data);
 
 ### An array of objects
 
-This is likely to be more convenient for data visualisation projects using d3.csvParse for . Note that an additional "key" property is required for each column if the keys in the row objects do not exactly match the column "heading" wanted in the spreadsheet.
+This is likely to be more convenient for data visualisation projects where data is typically already in this format. Note that an additional "key" property is required for each column if the object keys in the data rows do not exactly match the column "heading" wanted in the spreadsheet.
 
 ```js
 const rows = [
