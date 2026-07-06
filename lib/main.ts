@@ -141,7 +141,7 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 			columns: [
 				{
 					name: "Table",
-					style: { font: { underline: true, color: { argb: "0000FF" } } },
+					style: { font: { ...defaultFont, underline: true, color: { argb: "0000FF" } } },
 					filterButton: false
 				},
 				{ name: "Name", style: { alignment: { wrapText: true } }, filterButton: false }
