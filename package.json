@@ -15,8 +15,11 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview"
+		"build": "npm run build:package && npm run build:docs",
+		"build:package": "vite build",
+		"build:docs": "vite build --mode docs",
+		"preview": "vite preview",
+		"deploy": "gh-pages -d docs -t"
 	},
 	"repository": {
 		"type": "git",
@@ -32,6 +35,7 @@
 	"type": "module",
 	"devDependencies": {
 		"documonster": "^0.0.3",
+		"gh-pages": "^6.3.0",
 		"typescript": "^6.0.3",
 		"vite": "^8.1.3"
 	}

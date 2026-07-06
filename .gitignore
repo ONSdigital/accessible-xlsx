@@ -8,8 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+/dist
+/docs
 *.local
 .DS_Store
-
-/test.html
