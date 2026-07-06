@@ -26,6 +26,15 @@ const defaultFont = {
 	name: "Arial",
 	family: 2
 };
+const defaultView = {
+	x: 0,
+	y: 0,
+	width: 10000,
+	height: 20000,
+	firstSheet: 0,
+	activeTab: 0,
+	visibility: "visible"
+};
 
 // @ts-ignore -- need WorksheetData type from documonster
 function addTextRow(sheet, text: string, options: { height?: number; alignment?: {} } = {}) {
@@ -108,20 +117,6 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 	const workbook = Workbook.create();
 	const oneTableMessage = "This worksheet contains one table.";
 	const isSingleSheet = !data.sheets;
-	const creator = data.creator || "Anonymous";
-	const created = data.created || new Date();
-
-	const model = Workbook.getModel(workbook);
-
-	model.title = isSingleSheet ? data.sheetName : data.coverSheetTitle || "";
-	model.creator = creator;
-	model.lastModifiedBy = creator;
-	model.created = created;
-	model.modified = created;
-	model.defaultFont = defaultFont;
-	// model.views = [{ activeTab: 0, activeCell: "A1" }];
-
-	Workbook.setModel(workbook, model);
 
 	if (!isSingleSheet) {
 		const coverSheet = Workbook.addWorksheet(workbook, "Cover_sheet");
@@ -143,16 +138,13 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 			name: "table_of_contents",
 			ref: "A3",
 			headerRow: true,
-			style: {
-				theme: undefined,
-				showRowStripes: false
-			},
 			columns: [
 				{
 					name: "Table",
-					style: { font: { underline: true, color: { argb: "0000FF" } } }
+					style: { font: { underline: true, color: { argb: "0000FF" } } },
+					filterButton: false
 				},
-				{ name: "Name", style: { alignment: { wrapText: true } } }
+				{ name: "Name", style: { alignment: { wrapText: true } }, filterButton: false }
 			],
 			rows: data.sheets.map((d, i) => [
 				{
@@ -176,13 +168,9 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 				name: "notes",
 				ref: "A3",
 				headerRow: true,
-				style: {
-					theme: undefined,
-					showRowStripes: false
-				},
 				columns: [
-					{ name: "Number" },
-					{ name: "Note", style: { alignment: { wrapText: true } } }
+					{ name: "Number", filterButton: false },
+					{ name: "Note", style: { alignment: { wrapText: true } }, filterButton: false }
 				],
 				rows: data.notes.map((n) => [n.name, n.text])
 			});
@@ -214,11 +202,7 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 			name: s.tableName || slugify(name),
 			ref: `A${tableRowNumber}`,
 			headerRow: true,
-			style: {
-				theme: undefined,
-				showRowStripes: false
-			},
-			columns: s.columns.map((c) => ({ name: c.heading })),
+			columns: s.columns.map((c) => ({ name: c.heading, filterButton: false })),
 			rows
 		});
 		Row.setFont(sheet, tableRowNumber, { ...defaultFont, bold: true });
@@ -235,6 +219,22 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 			}
 		}
 	}
+
+	// Set workbook metadata and active sheet
+	const model = Workbook.getModel(workbook);
+
+	const creator = data.creator || "Anonymous";
+	const created = data.created || new Date();
+
+	model.title = isSingleSheet ? data.sheetName : data.coverSheetTitle || "";
+	model.creator = creator;
+	model.lastModifiedBy = creator;
+	model.created = created;
+	model.modified = created;
+	model.defaultFont = defaultFont;
+	model.views = [defaultView];
+
+	Workbook.setModel(workbook, model);
 
 	return Workbook.toBuffer(workbook);
 }
