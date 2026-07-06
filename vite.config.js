@@ -9,7 +9,8 @@ export default defineConfig((mode) => {
 					rolldownOptions: {
 						output: { inlineDynamicImports: true }
 					}
-				}
+				},
+				base: ""
 			}
 		: {
 				build: {
