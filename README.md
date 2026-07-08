@@ -21,7 +21,7 @@ npm install @onsvisual/accessible-xlsx
 If you are loading it directly in a browser:
 
 ```html
-<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.1.3/dist/accessible-xlsx.umd.js"></script>
+<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.1.7/dist/accessible-xlsx.umd.js"></script>
 ```
 
 In most cases, you'll want to download the JS file `accessible-xlsx.umd.js` and save it locally in your project.
@@ -33,7 +33,7 @@ A couple of client-side examples can be [found here](https://onsdigital.github.i
 ### Generate a single-page spreadsheet in vanilla JS
 
 ```html
-<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.1.3/dist/accessible-xlsx.umd.js"></script>
+<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.1.7/dist/accessible-xlsx.umd.js"></script>
 <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 <script>
 	const data = {
