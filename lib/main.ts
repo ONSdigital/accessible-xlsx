@@ -26,6 +26,10 @@ const defaultFont = {
 	name: "Arial",
 	family: 2
 };
+const cellStyles = {
+	"Heading 1": { font: { ...defaultFont, size: 18, bold: true } },
+	"Heading 2": { font: { ...defaultFont, size: 14, bold: true } }
+};
 const defaultView = {
 	x: 0,
 	y: 0,
@@ -35,17 +39,22 @@ const defaultView = {
 	activeTab: 0,
 	visibility: "visible"
 };
+const oneTableMessage = "This worksheet contains one table.";
 
 // @ts-ignore -- need WorksheetData type from documonster
 function addTextRow(sheet, text: string, options: { height?: number; alignment?: {} } = {}) {
 	const rowNum = Worksheet.rowCount(sheet) + 1;
 	const cellAddr = `A${rowNum}`;
 	if (text.startsWith("# ")) {
+		const key = "Heading 1";
 		Cell.setValue(sheet, cellAddr, text.slice(2));
-		Cell.setFont(sheet, cellAddr, { ...defaultFont, size: 18, bold: true });
+		Cell.applyCellStyle(sheet, cellAddr, key);
+		Cell.setFont(sheet, cellAddr, cellStyles[key].font);
 	} else if (text.startsWith("## ")) {
+		const key = "Heading 2";
 		Cell.setValue(sheet, cellAddr, text.slice(3));
-		Cell.setFont(sheet, cellAddr, { ...defaultFont, size: 14, bold: true });
+		Cell.applyCellStyle(sheet, cellAddr, key);
+		Cell.setFont(sheet, cellAddr, cellStyles[key].font);
 		Row.setHeight(sheet, rowNum, 40);
 	} else if (text.startsWith("[")) {
 		Cell.setValue(sheet, cellAddr, {
@@ -115,8 +124,27 @@ function slugify(string: string) {
 
 export default async function accessibleXLSX(data: tableData & sheetData) {
 	const workbook = Workbook.create();
-	const oneTableMessage = "This worksheet contains one table.";
 	const isSingleSheet = !data.sheets;
+
+	// Set workbook metadata and active sheet
+	const model = Workbook.getModel(workbook);
+
+	const creator = data.creator || "Anonymous";
+	const created = data.created || new Date();
+
+	model.title = isSingleSheet ? data.sheetName : data.coverSheetTitle || "";
+	model.creator = creator;
+	model.lastModifiedBy = creator;
+	model.created = created;
+	model.modified = created;
+	model.defaultFont = defaultFont;
+	model.views = [defaultView];
+
+	Workbook.setModel(workbook, model);
+
+	// Set heading styles
+	for (const entry of Object.entries(cellStyles))
+		Workbook.defineCellStyle(workbook, entry[0], entry[1]);
 
 	if (!isSingleSheet) {
 		const coverSheet = Workbook.addWorksheet(workbook, "Cover_sheet");
@@ -219,22 +247,6 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 			}
 		}
 	}
-
-	// Set workbook metadata and active sheet
-	const model = Workbook.getModel(workbook);
-
-	const creator = data.creator || "Anonymous";
-	const created = data.created || new Date();
-
-	model.title = isSingleSheet ? data.sheetName : data.coverSheetTitle || "";
-	model.creator = creator;
-	model.lastModifiedBy = creator;
-	model.created = created;
-	model.modified = created;
-	model.defaultFont = defaultFont;
-	model.views = [defaultView];
-
-	Workbook.setModel(workbook, model);
 
 	return Workbook.toBuffer(workbook);
 }
