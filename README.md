@@ -154,7 +154,7 @@ const data = {
 };
 
 const xlsx = await accessibleXLSX(data);
-writeFileSync("./my_spreadsheet.xlsx", data);
+writeFileSync("./my_spreadsheet.xlsx", xlsx);
 ```
 
 ## Generate a spreadsheet in a Svelte app
