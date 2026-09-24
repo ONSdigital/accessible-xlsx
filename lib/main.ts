@@ -248,5 +248,5 @@ export default async function accessibleXLSX(data: tableData & sheetData) {
 		}
 	}
 
-	return Workbook.toBuffer(workbook);
+	return Workbook.toBuffer(workbook, { validate: false });
 }

@@ -1,14 +1,20 @@
 import { resolve } from "node:path";
 import { defineConfig, loadEnv } from "vite";
 
+// Bundle everything into a single file. Tree-shaking is disabled because rolldown otherwise
+// splits documonster's excel/surface/worksheet.js into its own chunk (it is imported both
+// statically and via documonster's dynamic xlsb imports), which breaks the UMD build.
+const rolldownOptions = {
+	output: { codeSplitting: false },
+	treeshake: false
+};
+
 export default defineConfig((mode) => {
 	return mode.mode === "docs"
 		? {
 				build: {
 					outDir: "./docs",
-					rolldownOptions: {
-						output: { inlineDynamicImports: true }
-					}
+					rolldownOptions
 				},
 				base: ""
 			}
@@ -19,9 +25,7 @@ export default defineConfig((mode) => {
 						name: "accessibleXLSX",
 						fileName: (format) => `accessible-xlsx.${format}.js`
 					},
-					rolldownOptions: {
-						output: { inlineDynamicImports: true }
-					}
+					rolldownOptions
 				}
 			};
 });

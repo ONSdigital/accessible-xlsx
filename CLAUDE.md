@@ -17,7 +17,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 There is no test suite or linter. Formatting uses Prettier (`.prettierrc`: tabs, width 4, print width 100, no trailing commas).
 
-`dist/` and `docs/` are gitignored. Both builds set `inlineDynamicImports`, so Documonster is bundled into the output. That's why it is a devDependency and not a runtime dependency.
+`dist/` and `docs/` are gitignored. Both builds set `codeSplitting: false`, so Documonster is bundled into a single output file. That's why it is a devDependency and not a runtime dependency. Both builds also set `treeshake: false`. It works around a rolldown bug where tree-shaking splits documonster's `excel/surface/worksheet.js` into its own chunk, which breaks the UMD build. With `treeshake: false`, rolldown 1.1.x (Vite 8.1) produces a bundle that fails at runtime (`registerDuplexFrom is not defined`), so keep Vite ≥ 8.3. After changing the bundler config, check that the built bundle actually runs, e.g. by importing it in Node, not only that the build succeeds.
+
+`Workbook.toBuffer` is called with `{ validate: false }`. documonster's self-check would otherwise flag every table ("Excel drops tables with a fully-hidden autoFilter"), because every column has `filterButton: false`. That is a false alarm: the output has been verified to open correctly in Excel.
 
 ## Architecture
 
