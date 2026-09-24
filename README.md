@@ -21,7 +21,7 @@ npm install @onsvisual/accessible-xlsx
 If you are loading it directly in a browser:
 
 ```html
-<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.2.0/dist/accessible-xlsx.umd.js"></script>
+<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.2.1/dist/accessible-xlsx.umd.js"></script>
 ```
 
 In most cases, you'll want to download the JS file `accessible-xlsx.umd.js` and save it locally in your project.
@@ -33,7 +33,7 @@ A couple of client-side examples can be [found here](https://onsdigital.github.i
 ### Generate a single-page spreadsheet in vanilla JS
 
 ```html
-<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.2.0/dist/accessible-xlsx.umd.js"></script>
+<script src="https://unpkg.com/@onsvisual/accessible-xlsx@0.2.1/dist/accessible-xlsx.umd.js"></script>
 <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 <script>
 	const data = {
@@ -57,8 +57,8 @@ A couple of client-side examples can be [found here](https://onsdigital.github.i
 			}
 		]
 	};
-	// Beware: The generateXLSX function is asynchronous!
-	generateXLSX(data).then((xlsx) => {
+	// Beware: The accessibleXLSX function is asynchronous!
+	accessibleXLSX(data).then((xlsx) => {
 		const blob = new Blob([xlsx], {
 			type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 		});
@@ -200,7 +200,7 @@ const data = {
 	rows
 };
 
-const xlsx = accessibleXLSX(data);
+const xlsx = await accessibleXLSX(data);
 // Add code to write/download the XLSX output (see above examples)
 ```
 
@@ -236,7 +236,7 @@ const data = {
 	rows
 };
 
-const xlsx = accessibleXLSX(data);
+const xlsx = await accessibleXLSX(data);
 // Add code to write/download the XLSX output (see above examples)
 ```
 
