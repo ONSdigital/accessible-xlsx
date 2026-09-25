@@ -1,12 +1,9 @@
 import { resolve } from "node:path";
 import { defineConfig, loadEnv } from "vite";
 
-// Bundle everything into a single file. Tree-shaking is disabled because rolldown otherwise
-// splits documonster's excel/surface/worksheet.js into its own chunk (it is imported both
-// statically and via documonster's dynamic xlsb imports), which breaks the UMD build.
+// Bundle everything into a single file.
 const rolldownOptions = {
-	output: { codeSplitting: false },
-	treeshake: false
+	output: { codeSplitting: false }
 };
 
 export default defineConfig((mode) => {
